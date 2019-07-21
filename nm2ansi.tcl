@@ -33,8 +33,10 @@ proc codeToColor {code} {
         }
         BOLD     {vt::sda_bold}
         ULINE    {vt::sda_underline}
-        RESET    {vt::sda_reset
-            vt::sda_fgwhite}
+        RESET    {
+            vt::sda_reset
+            vt::sda_fgwhite
+        }
 	}
 }
 
@@ -48,6 +50,8 @@ proc decodeLine {line} {
 	}
 }
 
+vt::sda_reset
+vt::sda_fgwhite
 
 while {[gets stdin text] >= 0} {
 	puts [decodeLine $text]

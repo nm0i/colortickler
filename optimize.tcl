@@ -88,6 +88,6 @@ proc optimizeCode {line} {
 }
 
 while {[gets stdin text] >= 0} {
-	puts "%^RESET%^[optimizeCode $text]%^RESET%^"
+	puts "[optimizeCode $text]"
 }
 
