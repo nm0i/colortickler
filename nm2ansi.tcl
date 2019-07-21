@@ -9,8 +9,8 @@ source [file join [file dirname [info script]] functions.tcl]
 # Maps color codes to vt codes.
 # IN: color code
 proc codeToColor {code} {
-	switch $code {
-		RED        {vt::sda_fgred}
+    switch $code {
+        RED        {vt::sda_fgred}
         B_RED      {vt::sda_bgred}
         BLUE       {vt::sda_fgblue}
         B_BLUE     {vt::sda_bgblue}
@@ -37,24 +37,24 @@ proc codeToColor {code} {
             vt::sda_reset
             vt::sda_fgwhite
         }
-	}
+    }
 }
 
 proc decodeLine {line} {
-	set codeList [regexp -inline -all -- {%\^\w+%\^[^%]*} $line]
-	foreach codeWord $codeList {
-		set colorWord [getColorWord $codeWord]
-		codeToColor $colorWord
-		set segment [string map [list "%^${colorWord}%^" ""] $codeWord]
-		vt::wr $segment
-	}
+    set codeList [regexp -inline -all -- {%\^\w+%\^[^%]*} $line]
+    foreach codeWord $codeList {
+        set colorWord [getColorWord $codeWord]
+        codeToColor $colorWord
+        set segment [string map [list "%^${colorWord}%^" ""] $codeWord]
+        vt::wr $segment
+    }
 }
 
 vt::sda_reset
 vt::sda_fgwhite
 
 while {[gets stdin text] >= 0} {
-	puts [decodeLine $text]
+    puts [decodeLine $text]
 }
 
 vt::sda_reset
